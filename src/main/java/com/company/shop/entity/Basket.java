@@ -1,17 +1,12 @@
 package com.company.shop.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
-
-@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class)
 @Entity
 @Table(name = "basket")
 public class Basket implements Serializable {
@@ -20,10 +15,10 @@ public class Basket implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @ManyToMany( cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(
             name = "product_basket",
-            joinColumns ={@JoinColumn(name = "basket_id")} ,
+            joinColumns = {@JoinColumn(name = "basket_id")},
             inverseJoinColumns = {@JoinColumn(name = "product_id")}
     )
     @JsonManagedReference
