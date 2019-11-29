@@ -13,30 +13,20 @@ public class User implements Serializable {
     @Column(name = "user_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @Column(name = "user_name")
+    @Column(name = "user_name",nullable = false)
     private String name;
-    @Column(name = "user_password")
-    private String password;
-    @Column(name = "user_email")
-    private String email;
+    @OneToOne(mappedBy = "user",fetch = FetchType.LAZY)
+    UserProperty userProperty;
     @JsonManagedReference
-    @OneToOne(mappedBy = "user",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "user",  fetch = FetchType.LAZY)
     private Basket basket;
 
     public long getId() {
         return id;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
     public String getName() {
         return name;
-    }
-
-    public String getEmail() {
-        return email;
     }
 
     public Basket getBasket() {

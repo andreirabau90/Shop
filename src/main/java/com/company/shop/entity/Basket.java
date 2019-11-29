@@ -5,27 +5,28 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "basket")
+@Table(name = "baskets")
 public class Basket implements Serializable {
     @Id
     @Column(name = "basket_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JoinTable(
             name = "product_basket",
             joinColumns = {@JoinColumn(name = "basket_id")},
             inverseJoinColumns = {@JoinColumn(name = "product_id")}
     )
     @JsonManagedReference
-    private List<Product> basketProducts;
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    private List<Product> basketProducts= new ArrayList<>();
     @JsonBackReference
+    @OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL, optional = false)
+    @JoinColumn(unique = true, name = "user_id")
     private User user;
 
     public long getId() {

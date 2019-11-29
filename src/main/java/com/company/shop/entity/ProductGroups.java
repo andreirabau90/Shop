@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -13,11 +14,11 @@ public class ProductGroups implements Serializable {
     @Column(name = "group_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @Column(name = "group_name")
+    @Column(name = "group_name", nullable = false)
     private String name;
     @JsonBackReference
     @OneToMany(mappedBy = "group", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Product> products;
+    private List<Product> products = new ArrayList<>();
 
 
     public List<Product> getProducts() {

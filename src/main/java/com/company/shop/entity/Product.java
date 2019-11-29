@@ -1,12 +1,13 @@
 package com.company.shop.entity;
 
 
-
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -17,19 +18,19 @@ public class Product implements Serializable {
     @Column(name = "product_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @Column(name = "product_name")
+    @Column(name = "product_name",nullable = false)
     private String name;
-    @Column(name = "price")
+    @Column(name = "price",nullable = false)
     private double price;
-    @Column(name = "description")
+    @Column(name = "description",nullable = false)
     private String description;
-    @ManyToOne
+    @ManyToOne()
     @JsonManagedReference
-    @JoinColumn(name = "product_group")
+    @JoinColumn(name = "product_group", nullable = false)
     private ProductGroups group;
     @JsonBackReference
-    @ManyToMany(mappedBy = "basketProducts")
-    private List<Basket> baskets;
+    @ManyToMany(mappedBy = "basketProducts" , cascade = CascadeType.PERSIST)
+    private List<Basket> baskets = new ArrayList<>();
 
 
     public long getId() {
@@ -52,33 +53,14 @@ public class Product implements Serializable {
         return price;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
     public String getDescription() {
         return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public ProductGroups getGroup() {
         return group;
     }
 
-    public void setGroup(ProductGroups group) {
-        this.group = group;
-    }
-
-    public List<Basket> getBaskets() {
-        return baskets;
-    }
-
-    public void setBaskets(List<Basket> baskets) {
-        this.baskets = baskets;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -94,12 +76,10 @@ public class Product implements Serializable {
 
     @Override
     public int hashCode() {
-        int result = 17;
-        result = 37 * result + (int) id;
+        int result = (int)id;
         result = 37 * result + name.hashCode();
-        result = 37 * result + (int) price;
         result = 37 * result + description.hashCode();
-        result = 37 * result + (int)group.getId();
+        result =  37 * result + (int) group.getId();
         return result;
     }
 
