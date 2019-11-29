@@ -1,0 +1,90 @@
+*{
+    font-family: "Arial", sans-serif;
+
+}
+body{
+
+    background: url("../image/background.jpg") no-repeat top center;
+    background-size: cover;
+    min-height: 100vh;
+    overflow: hidden;
+}
+#groups {
+    margin: 20px 10px 10px 20px;
+}
+
+#productList {
+    position: absolute;
+    top: 55px;
+    left: 155px;
+}
+
+#product {
+    position: absolute;
+    left: 40%;
+    top: 15%;
+    background: wheat;
+}
+#basket{
+    position: absolute;
+    left: 75%;
+    top: 22px;
+}
+#basketList{
+    background: cornsilk;
+    background-clip: content-box;
+    text-align: center;
+    padding: 10px 0px 15px 0px;
+    width: 115%;
+    line-height: 2;
+    word-spacing: 10px;
+}
+.button-group {
+    background: cornsilk;
+
+}
+
+.button-product {
+    background: floralwhite;
+}
+.button{
+    text-align: center;
+    width: 100px;
+    height: 35px;
+    border-radius: 15px;
+}
+.product {
+
+}
+
+.product-name {
+    text-align: center;
+    margin: 35px;
+}
+
+.product-image {
+    position: relative;
+    left: 75px;
+    width: 240px;
+    height: 240px;
+}
+
+.product-description {
+    position: relative;
+    width: 380px;
+    text-align: center;
+}
+
+.product-price {
+    font-size: 24px;
+    position: relative;
+    left: 12px;
+}
+
+.product-button {
+    left: 250px;
+    bottom: 58px;
+    width: 75px;
+    height: 29px;
+    position: relative;
+}

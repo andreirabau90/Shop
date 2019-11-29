@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
+    <link th:href="@{/resources/css/style.css}" rel="stylesheet">
+</head>
+<body>
+<header></header>
+<div id="groups">
+    <th:block th:each="entry:${groups}">
+        <input type="button" class="button-group button"
+               th:onclick="'javascript:getProductsGroup(\'' + ${entry.id} + '\')'"
+               th:id="${entry.id}" th:value="${entry.name}">
+        <br>
+    </th:block>
+</div>
+
+
+<div id="productList"></div>
+<div id="product"></div>
+
+<input type="button" th:onclick="getUser(1)" th:value="user">
+
+<div id="basket">
+<div id="basketList"></div>
+</div>
+<div th:id="user"></div>
+<footer></footer>
+<script th:src="@{/resources/js/script.js}" th:inline="javascript">
+</script>
+</body>
+</html>
