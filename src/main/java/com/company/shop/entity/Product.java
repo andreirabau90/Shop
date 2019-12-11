@@ -2,7 +2,6 @@ package com.company.shop.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
@@ -18,18 +17,18 @@ public class Product implements Serializable {
     @Column(name = "product_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @Column(name = "product_name",nullable = false)
+    @Column(name = "product_name", nullable = false)
     private String name;
-    @Column(name = "price",nullable = false)
+    @Column(name = "price", nullable = false)
     private double price;
-    @Column(name = "description",nullable = false)
+    @Column(name = "description", nullable = false)
     private String description;
     @ManyToOne()
     @JsonManagedReference
     @JoinColumn(name = "product_group", nullable = false)
     private ProductGroups group;
     @JsonBackReference
-    @ManyToMany(mappedBy = "basketProducts" , cascade = CascadeType.PERSIST)
+    @ManyToMany(mappedBy = "basketProducts", cascade = CascadeType.PERSIST)
     private List<Basket> baskets = new ArrayList<>();
 
 
@@ -76,10 +75,10 @@ public class Product implements Serializable {
 
     @Override
     public int hashCode() {
-        int result = (int)id;
+        int result = (int) id;
         result = 37 * result + name.hashCode();
         result = 37 * result + description.hashCode();
-        result =  37 * result + (int) group.getId();
+        result = 37 * result + (int) group.getId();
         return result;
     }
 

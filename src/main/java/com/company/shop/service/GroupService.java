@@ -10,15 +10,20 @@ import java.util.List;
 
 @Component
 public class GroupService {
-    @Autowired
+    private final
     IRepository<ProductGroups> groupsIRepository;
 
-    public ProductGroups getProductGroupById(long id) {
+    @Autowired
+    public GroupService(IRepository<ProductGroups> groupsIRepository) {
+        this.groupsIRepository = groupsIRepository;
+    }
+
+    private ProductGroups getProductGroupById(long id) {
         return groupsIRepository.getById(ProductGroups.class, id);
     }
 
     public List<ProductGroups> getAllProductGroup() {
-        return groupsIRepository.getAll(ProductGroups.class, "ProductGroups");
+        return groupsIRepository.getAll( "ProductGroups");
     }
 
     public List<Product> getProductsFromGroupById(long id) {

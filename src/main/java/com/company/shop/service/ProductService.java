@@ -8,8 +8,13 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class ProductService {
-    @Autowired
+    private final
     IRepository<Product> repository;
+
+    @Autowired
+    public ProductService(IRepository<Product> repository) {
+        this.repository = repository;
+    }
 
     public Product getProductById(long id) {
         return repository.getById(Product.class, id);

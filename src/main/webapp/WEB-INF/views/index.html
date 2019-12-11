@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<html xmlns:th="http://www.thymeleaf.org/" lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -17,14 +17,14 @@
     </th:block>
 </div>
 
-
 <div id="productList"></div>
 <div id="product"></div>
-
-<input type="button" th:onclick="getUser(1)" th:value="user">
+<form th:action="@{/registration}" method="get">
+    <input type="submit" value="Check in">
+</form>
 
 <div id="basket">
-<div id="basketList"></div>
+    <div id="basketList"></div>
 </div>
 <div th:id="user"></div>
 <footer></footer>

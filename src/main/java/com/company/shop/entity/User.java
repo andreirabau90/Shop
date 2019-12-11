@@ -3,6 +3,7 @@ package com.company.shop.entity;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 
@@ -13,12 +14,13 @@ public class User implements Serializable {
     @Column(name = "user_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @Column(name = "user_name",nullable = false)
+    @NotNull
+    @Column(name = "user_name", nullable = false)
     private String name;
-    @OneToOne(mappedBy = "user",fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "user", fetch = FetchType.LAZY)
     UserProperty userProperty;
     @JsonManagedReference
-    @OneToOne(mappedBy = "user",  fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "user", fetch = FetchType.LAZY)
     private Basket basket;
 
     public long getId() {
@@ -33,5 +35,27 @@ public class User implements Serializable {
         return basket;
     }
 
+    public UserProperty getUserProperty() {
+        return userProperty;
+    }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setUserProperty(UserProperty userProperty) {
+        this.userProperty = userProperty;
+    }
+
+    public void setBasket(Basket basket) {
+        this.basket = basket;
+    }
+
+    public User() {
+    }
+
+    public User(String name) {
+        this.name = name;
+        this.basket = new Basket();
+    }
 }

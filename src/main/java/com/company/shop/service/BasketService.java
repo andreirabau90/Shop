@@ -9,8 +9,13 @@ import org.springframework.stereotype.Component;
 @Component
 public class BasketService {
 
-    @Autowired
+    private final
     IRepository<Basket> basketIRepository;
+
+    @Autowired
+    public BasketService(IRepository<Basket> basketIRepository) {
+        this.basketIRepository = basketIRepository;
+    }
 
     public Basket getBasketById(long id) {
         return basketIRepository.getById(Basket.class, id);

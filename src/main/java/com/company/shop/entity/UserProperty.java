@@ -1,8 +1,7 @@
 package com.company.shop.entity;
 
 import javax.persistence.*;
-import javax.validation.constraints.Pattern;
-import java.util.Objects;
+
 
 @Entity
 @Table(name = "user_property")
@@ -12,20 +11,25 @@ public class UserProperty {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "property_id")
     private long propId;
-    @Pattern(regexp = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$")
-    @Column(name = "email",nullable = false)
-    private String email;
-    @Column(name = "login",nullable = false)
+    @Column(name = "login", nullable = false)
     private String login;
-    @Column(name = "password",nullable = false)
+    @Column(name = "password", nullable = false)
     private String password;
+    @Column(name = "email", nullable = false)
+    private String email;
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, optional = false)
-    @JoinColumn(unique = true,name = "user_id")
+    @JoinColumn(unique = true, name = "user_id")
     User user;
 
     public UserProperty() {
     }
 
+    public UserProperty(String login, String password, String email, User user) {
+        this.email = email;
+        this.login = login;
+        this.password = password;
+        this.user = user;
+    }
 
     public String getLogin() {
         return login;

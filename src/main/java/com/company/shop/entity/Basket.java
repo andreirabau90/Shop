@@ -15,7 +15,6 @@ public class Basket implements Serializable {
     @Column(name = "basket_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
     @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JoinTable(
             name = "product_basket",
@@ -23,9 +22,9 @@ public class Basket implements Serializable {
             inverseJoinColumns = {@JoinColumn(name = "product_id")}
     )
     @JsonManagedReference
-    private List<Product> basketProducts= new ArrayList<>();
+    private List<Product> basketProducts = new ArrayList<>();
     @JsonBackReference
-    @OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL, optional = false)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, optional = false)
     @JoinColumn(unique = true, name = "user_id")
     private User user;
 

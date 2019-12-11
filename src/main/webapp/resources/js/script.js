@@ -38,26 +38,6 @@ function getProduct(id) {
     });
 }
 
-function getUser(id) {
-    $.ajax({
-        url: "getUser",
-        data: {"id": id},
-        dataType: "json",
-        success: function (data) {
-            $("#user").empty();
-            $("#user").append(data.name);
-            userId=data.id;
-            if (basketUser == null) {
-                basketUser = data.basket.id;
-                $("#basket").prepend("<input id=\"basketButton\" type=\"button\" onclick=\"getBasket(userId)\" value=\"getBasket\">");
-                if (!$("#product").is(':empty')&&$("#buy").text().length===0){
-                    $("#product").append("<button id='buy' class='product-button button' onclick='addOrDeleteProductInBasket(basketUser,productId,true)'>buy</button>");
-                }
-            }
-        }
-    });
-    return false;
-}
 
 function addOrDeleteProductInBasket(idBasket, idProduct, addOrDelete) {
     $.ajax({
