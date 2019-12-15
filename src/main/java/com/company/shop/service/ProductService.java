@@ -1,24 +1,20 @@
 package com.company.shop.service;
 
-import com.company.shop.repository.IRepository;
 import com.company.shop.entity.Product;
+import com.company.shop.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-import org.springframework.stereotype.Component;
-
-@Component
+@Service
 public class ProductService {
-    private final
-    IRepository<Product> repository;
+    private final ProductRepository productRepository;
 
     @Autowired
-    public ProductService(IRepository<Product> repository) {
-        this.repository = repository;
+    public ProductService(ProductRepository productRepository) {
+        this.productRepository = productRepository;
     }
 
     public Product getProductById(long id) {
-        return repository.getById(Product.class, id);
-
-
+        return productRepository.findById(id).get();
     }
 }

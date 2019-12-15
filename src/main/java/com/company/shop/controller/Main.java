@@ -2,16 +2,14 @@ package com.company.shop.controller;
 
 import com.company.shop.entity.Basket;
 import com.company.shop.entity.Product;
-import com.company.shop.entity.User;
 import com.company.shop.form.UserPropertyForm;
 import com.company.shop.service.BasketService;
-import com.company.shop.service.GroupService;
+import com.company.shop.service.ProductGroupService;
 import com.company.shop.service.ProductService;
 import com.company.shop.service.UserService;
 import com.company.shop.validator.ValidatorImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -21,21 +19,21 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
-@Controller
+@RestController
 public class Main {
     @Autowired
     private ValidatorImpl validator;
     private
     ProductService productService;
     private
-    GroupService groupService;
+    ProductGroupService groupService;
     private
     UserService userService;
     private
     BasketService basketService;
 
     @Autowired
-    public Main(ProductService productService, GroupService groupService, UserService userService, BasketService basketService) {
+    public Main(ProductService productService, ProductGroupService groupService, UserService userService, BasketService basketService) {
         this.productService = productService;
         this.groupService = groupService;
         this.userService = userService;
@@ -45,10 +43,9 @@ public class Main {
     @InitBinder
     protected void initBinder(WebDataBinder webDataBinder) {
         Object target = webDataBinder.getTarget();
-        if (target.getClass() == UserPropertyForm.class) {
+        if (null != target && target.getClass() == UserPropertyForm.class) {
             webDataBinder.setValidator(validator);
         }
-
     }
 
     @RequestMapping("/")
@@ -61,7 +58,7 @@ public class Main {
 
 
     @RequestMapping(value = "/getProductsFromGroupById", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Product> newProd(long id) {
+    public List<Product> getProductsFromGroupById(long id) {
         return groupService.getProductsFromGroupById(id);
     }
 
@@ -80,17 +77,17 @@ public class Main {
     }
 
     @PostMapping("/registration")
-    public String enterUser(Model model,
-                            @ModelAttribute("userPropertyForm") @Validated UserPropertyForm userPropertyForm,
-                            BindingResult bindingResult) {
+    public String registrationUser(Model model,
+                                   @ModelAttribute("userPropertyForm") @Validated UserPropertyForm userPropertyForm,
+                                   BindingResult bindingResult) {
         if (!bindingResult.hasErrors()) {
             userService.saveUser(userPropertyForm);
             model.addAttribute("email", userPropertyForm.getEmail());
-            return "/results";
+            return "results";
         }
         return "registrationPage";
-
     }
+
 
     @RequestMapping("getBasketById")
     public Basket getBasketById(long id) {
@@ -102,5 +99,5 @@ public class Main {
         basketService.addProductInBasket(idBasket, productService.getProductById(idProduct), addOrDelete);
     }
 
-
 }
+

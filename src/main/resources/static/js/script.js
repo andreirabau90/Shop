@@ -28,7 +28,7 @@ function getProduct(id) {
             $("#product").empty();
             $("#product").append(
                 "<h2 class='product-name'>" + data.name + "</h2>" +
-                "<img class='product-image' src=\"/resources/image/00"+productId+".jpg\">" +
+                "<img class='product-image' src=\"/image/00"+productId+".jpg\">" +
                 "<p class='product-description '>" + data.description + "</p>" +
                 "<p><h4 class='product-price'>price for 1 kg : " + data.price + "</h4></p>");
             if (basketUser != null) {

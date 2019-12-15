@@ -3,34 +3,35 @@ package com.company.shop.service;
 import com.company.shop.entity.User;
 import com.company.shop.entity.UserProperty;
 import com.company.shop.form.UserPropertyForm;
-import com.company.shop.repository.IRepository;
+import com.company.shop.repository.UserPropertyRepository;
+import com.company.shop.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Component
+@Service
 public class UserService {
 
     private final
-    IRepository<User> userIRepository;
+    UserRepository userRepository;
     private final
-    UserPropertyService userPropertyService;
+    UserPropertyRepository userPropertyRepository;
 
     @Autowired
-    public UserService(IRepository<User> userIRepository, UserPropertyService userPropertyService) {
-        this.userIRepository = userIRepository;
-        this.userPropertyService = userPropertyService;
+    public UserService(UserRepository userRepository, UserPropertyRepository userPropertyRepository) {
+        this.userRepository = userRepository;
+        this.userPropertyRepository = userPropertyRepository;
 
     }
 
     public User getUserById(long id) {
-        return userIRepository.getById(User.class, id);
+        return userRepository.findById(id).get();
     }
 
     public void saveUser(UserPropertyForm userPropertyForm) {
         User user = new User(userPropertyForm.getName());
-        userIRepository.saveOrUpdate(user);
+        userRepository.save(user);
         UserProperty userProperty = new UserProperty(userPropertyForm.getLogin(), userPropertyForm.getPassword(), userPropertyForm.getEmail(), user);
-        userPropertyService.saveOrUpdate(userProperty);
+        userPropertyRepository.save(userProperty);
     }
 
 }

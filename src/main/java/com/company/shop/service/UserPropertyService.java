@@ -1,32 +1,32 @@
 package com.company.shop.service;
 
 import com.company.shop.entity.UserProperty;
-import com.company.shop.repository.IRepository;
+import com.company.shop.repository.UserPropertyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Component
+@Service
 public class UserPropertyService {
     private final
-    IRepository<UserProperty> userPropertyIRepository;
+    UserPropertyRepository userPropertyRepository;
 
     @Autowired
-    public UserPropertyService(IRepository<UserProperty> userPropertyIRepository) {
-        this.userPropertyIRepository = userPropertyIRepository;
+    public UserPropertyService(UserPropertyRepository userPropertyRepository) {
+        this.userPropertyRepository = userPropertyRepository;
     }
 
 
     public UserProperty getByLogin(String login) {
-        return userPropertyIRepository.getByField(UserProperty.class, "UserProperty", "login", login);
+        return userPropertyRepository.findByLogin(login);
 
     }
 
     public UserProperty getByEmail(String email) {
-        return userPropertyIRepository.getByField(UserProperty.class, "UserProperty", "email", email);
+        return userPropertyRepository.findByEmail(email);
 
     }
 
-    public void saveOrUpdate(UserProperty userProperty) {
-        userPropertyIRepository.saveOrUpdate(userProperty);
+    public void save(UserProperty userProperty) {
+        userPropertyRepository.save(userProperty);
     }
 }

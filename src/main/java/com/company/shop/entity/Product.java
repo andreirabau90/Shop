@@ -32,6 +32,9 @@ public class Product implements Serializable {
     private List<Basket> baskets = new ArrayList<>();
 
 
+    public Product() {
+    }
+
     public long getId() {
         return id;
     }

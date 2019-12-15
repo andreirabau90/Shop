@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
-    <link th:href="@{/resources/css/style.css}" rel="stylesheet">
+    <link th:href="@{/css/style.css}" rel="stylesheet">
 </head>
 <body>
 <header></header>
@@ -23,12 +23,13 @@
     <input type="submit" value="Check in">
 </form>
 
+
 <div id="basket">
     <div id="basketList"></div>
 </div>
 <div th:id="user"></div>
 <footer></footer>
-<script th:src="@{/resources/js/script.js}" th:inline="javascript">
+<script th:src="@{/js/script.js}" th:inline="javascript">
 </script>
 </body>
 </html>

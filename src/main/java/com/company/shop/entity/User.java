@@ -18,6 +18,7 @@ public class User implements Serializable {
     @Column(name = "user_name", nullable = false)
     private String name;
     @OneToOne(mappedBy = "user", fetch = FetchType.LAZY)
+    private
     UserProperty userProperty;
     @JsonManagedReference
     @OneToOne(mappedBy = "user", fetch = FetchType.LAZY)
